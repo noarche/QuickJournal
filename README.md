@@ -1,18 +1,37 @@
 # QuickJournal
 
-Quickly create textfile notes. Great for keeping a journal. Saves files with naming convention of current date and time. 
+QuickJournal is a simple journaling application that allows you to write and save text entries with ease.
 
 
-## IMPORTANT: Save Directory
 
-How to change directory notes save in:
+## Prepare Configuration and Footer Files:
 
-	Go to root/working directory of application
-	Rename the file '_config.txt' to 'config.txt'
-	Edit the path inside of config.txt to the correct directory.
-	
+
+### Configuration File:
+
+Create a file named config.txt in the same directory as the QuickJournal script.
+Inside config.txt, specify the directory where you want to save your journal entries. If you leave this file empty or specify an invalid path, QuickJournal will save your entries in the current working directory.
+
+
+### Optional Footer File:
+
+Create a file named footer.txt in the same directory as the QuickJournal script.
+Write any text you want to be appended to the bottom of every saved entry in footer.txt. This step is optional.
+
 If you do not set a path in the config.txt file your files will be saved in the same directory this application is located. 
 
+## Saving Your Entry:
+
+After typing your journal entry, click the "Save Entry" button located below the text box.
+When you click the "Save Entry" button, the following actions occur:
+The current date and time are captured.
+The text you entered is read from the text box.
+The first word of your entry is extracted.
+A filename is created using the format Month Day Year HourMinute AM/PM - FirstWord.txt.
+If a footer.txt file exists, its content is appended to your entry.
+Your entry (with the optional footer) is saved to the directory specified in config.txt or the current working directory.
+A message box confirms the save location.
+The text box is cleared for your next entry.
 
 
 ![screenshot](https://github.com/noarche/QuickJournal/blob/main/Screenshot.jpg?raw=true)

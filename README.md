@@ -15,7 +15,7 @@ If you do not set a path in the config.txt file your files will be saved in the 
 
 
 
-![screenshot](https://github.com/noarche/dorkGen/blob/main/screenshot.png?raw=true)
+![screenshot](https://github.com/noarche/QuickJournal/blob/main/Screenshot.jpg?raw=true)
 
 
 ## Support

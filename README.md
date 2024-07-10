@@ -3,7 +3,7 @@
 Quickly create textfile notes. Great for keeping a journal. Saves files with naming convention of current date and time. 
 
 
-## Save Directory
+## IMPORTANT: Save Directory
 
 How to change directory notes save in:
 

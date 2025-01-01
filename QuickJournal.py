@@ -77,7 +77,7 @@ def save_entry(textbox, titlebox, signature_dropdown):
                 footer_text = footer_text.replace("{date}", datetime.now().strftime('%B %d, %Y'))
                 footer_text = footer_text.replace("{dateTime}", datetime.now().strftime('%B %d, %Y %H:%M:%S'))
                 word_count = len(text.split())
-                footer_text = footer_text.replace("{wordcount}", f"Wordcount: {word_count}")
+                footer_text = footer_text.replace("{wordcount}", f"Words: {word_count}")
 
                 footer_text = "\n" + footer_text  # Add a newline before the footer
 

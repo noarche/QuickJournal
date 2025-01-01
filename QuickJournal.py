@@ -11,6 +11,7 @@ def get_config():
     config = configparser.ConfigParser()
     if not os.path.exists(CONFIG_FILE):
         config['Paths'] = {'save_path': os.getcwd(), 'signatures_path': os.path.abspath('signatures')}
+        config['Settings'] = {'replace_spaces': 'True'}
         with open(CONFIG_FILE, 'w') as configfile:
             config.write(configfile)
     else:
@@ -24,6 +25,11 @@ def update_config(section, key, value):
     config[section][key] = value
     with open(CONFIG_FILE, 'w') as configfile:
         config.write(configfile)
+
+    # Notify the user of changes
+    setting_name = key.replace('_', ' ').capitalize()
+    status = "enabled" if value.lower() == 'true' else "disabled"
+    QtWidgets.QMessageBox.information(None, "QuickJournal", f"{setting_name} has been {status}.")
 
 def get_path(key):
     config = get_config()
@@ -42,7 +48,10 @@ def save_entry(textbox, titlebox, signature_dropdown):
         if not title:
             title = datetime.now().strftime('%B.%d.%Y.%H.%M.%S')
         else:
-            title = title.replace(' ', '.')
+            config = get_config()
+            replace_spaces = config['Settings'].getboolean('replace_spaces', fallback=True)
+            if replace_spaces:
+                title = title.replace(' ', '.')
 
         if '/' in title or '\\' in title:
             dir_path, title = os.path.split(title)
@@ -68,7 +77,7 @@ def save_entry(textbox, titlebox, signature_dropdown):
                 footer_text = footer_text.replace("{date}", datetime.now().strftime('%B %d, %Y'))
                 footer_text = footer_text.replace("{dateTime}", datetime.now().strftime('%B %d, %Y %H:%M:%S'))
                 word_count = len(text.split())
-                footer_text = footer_text.replace("{wordCount}", f"Wordcount: {word_count}")
+                footer_text = footer_text.replace("{wordcount}", f"Wordcount: {word_count}")
 
                 footer_text = "\n" + footer_text  # Add a newline before the footer
 
@@ -93,6 +102,7 @@ def show_about():
         "Updated: JAN 1 2025\n\n"
         "Configuration:\n"
         "The application supports multiple configurable paths in the config.ini file:\n"
+        "IMPORTANT: After making changes to config you must exit and reopen applicaiton!!\n"
         "  - save_path: The directory where journal entries are saved.\n"
         "  - signature Variables {date} {dateTime} {wordCount}\n"
         "  - signatures_path: The directory containing signature files.\n\n"
@@ -119,9 +129,12 @@ def show_config_info():
     config = get_config()
     save_path = config['Paths'].get('save_path', 'Not Found')
     signatures_path = config['Paths'].get('signatures_path', 'Not Found')
+    replace_spaces = config['Settings'].getboolean('replace_spaces', fallback=True)
+
     config_info_text = (
         f"Current Save Path: {save_path}\n"
-        f"Signatures Directory: {signatures_path}"
+        f"Signatures Directory: {signatures_path}\n"
+        f"Replace Spaces: {'Enabled' if replace_spaces else 'Disabled'}"
     )
     QtWidgets.QMessageBox.information(None, "Configuration Info", config_info_text)
 
@@ -156,6 +169,15 @@ class QuickJournalApp(QtWidgets.QWidget):
         change_signatures_action = QtWidgets.QAction("Change Signatures Location", self)
         change_signatures_action.triggered.connect(change_signatures_location)
         file_menu.addAction(change_signatures_action)
+
+        enable_replace_action = QtWidgets.QAction("Enable Replace Spaces", self)
+        enable_replace_action.triggered.connect(lambda: update_config('Settings', 'replace_spaces', 'True'))
+
+        disable_replace_action = QtWidgets.QAction("Disable Replace Spaces", self)
+        disable_replace_action.triggered.connect(lambda: update_config('Settings', 'replace_spaces', 'False'))
+
+        file_menu.addAction(enable_replace_action)
+        file_menu.addAction(disable_replace_action)
 
         config_info_action = QtWidgets.QAction("Config Info", self)
         config_info_action.triggered.connect(show_config_info)

@@ -1,52 +1,63 @@
-# QuickJournal
+QuickJournal is a simple journaling application that allows you to write and save text entries with ease. It features a modern GUI with transparency and enhanced functionality.
+Configuration File Setup
 
-QuickJournal is a simple journaling application that allows you to write and save text entries with ease.
+QuickJournal uses a configuration file (config.ini) to manage multiple paths. These include:
+Paths Section:
+
+    save_path:
+        Specifies the directory where journal entries will be saved.
+        Defaults to the current working directory if not set.
+
+    signatures_path:
+        Specifies the directory containing signature files.
+        Defaults to a signatures folder in the current directory if not set.
+
+The configuration file will look like this:
+
+[Paths]
+save_path = /path/to/save/directory
+signatures_path = /path/to/signatures/directory
+
+You can dynamically change these paths through the File menu in the application:
+
+    Change Save Location: Select a directory for saving journal entries.
+    Change Signatures Location: Select a directory for signature files.
+
+Features and Usage
+Writing and Saving an Entry:
+
+    Text Input:
+        Enter your text in the provided text area.
+    Title:
+        Optionally, specify a custom title in the title box. If left empty, the filename will default to the current timestamp (e.g., January.01.2025.12.00.00.txt).
+    Signatures:
+        Use the dropdown menu to select a signature. If "No Signature" is selected, no footer will be added.
+    Save:
+        Click the "Save Entry" button. The entry will be saved to the configured save_path.
+
+Menu Options:
+
+    About:
+        View information about QuickJournal, its functionality, and updates.
+
+    Change Save Location:
+        Change the save directory. This updates the save_path in the configuration file.
+
+    Change Signatures Location:
+        Change the signatures directory. This updates the signatures_path in the configuration file.
+
+    Config Info:
+        View the current paths for save_path and signatures_path.
+
+Signatures
+
+    Add .txt files to the directory specified in the signatures_path.
+    These files will automatically appear in the dropdown menu for selection.
 
 
 
-## Prepare Configuration and Footer Files:
 
 
-### Configuration File:
-
-Create a file named config.txt in the same directory as the QuickJournal script.
-
-Inside config.txt, specify the directory where you want to save your journal entries. 
-
-If you leave this file empty or specify an invalid path, QuickJournal will save your entries in the current working directory.
-
-
-### Optional Footer File:
-
-Create a file named footer.txt in the same directory as the QuickJournal script.
-
-Write any text you want to be appended to the bottom of every saved entry in footer.txt. This step is optional.
-
-
-## Saving Your Entry:
-
-After typing your journal entry, click the "Save Entry" button located below the text box.
-
-When you click the "Save Entry" button, the following actions occur:
-
-The current date and time are captured.
-
-The text you entered is read from the text box.
-
-The first word of your entry is extracted.
-
-A filename is created using the format Month Day Year HourMinute AM/PM - FirstWord.txt.
-
-If a footer.txt file exists, its content is appended to your entry.
-
-Your entry (with the optional footer) is saved to the directory specified in config.txt or the current working directory.
-
-A message box confirms the save location.
-
-The text box is cleared for your next entry.
-
-
-![screenshot](https://github.com/noarche/QuickJournal/blob/main/Screenshot.jpg?raw=true)
 
 
 ## Support

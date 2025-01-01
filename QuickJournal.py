@@ -62,7 +62,15 @@ def save_entry(textbox, titlebox, signature_dropdown):
             signature_path = os.path.join(signatures_path, selected_signature)
             if os.path.exists(signature_path):
                 with open(signature_path, 'r', encoding='utf-8') as footer_file:
-                    footer_text = "\n" + footer_file.read().strip()
+                    footer_text = footer_file.read().strip()
+
+                # Replace variables in the signature
+                footer_text = footer_text.replace("{date}", datetime.now().strftime('%B %d, %Y'))
+                footer_text = footer_text.replace("{dateTime}", datetime.now().strftime('%B %d, %Y %H:%M:%S'))
+                word_count = len(text.split())
+                footer_text = footer_text.replace("{wordCount}", f"Wordcount: {word_count}")
+
+                footer_text = "\n" + footer_text  # Add a newline before the footer
 
         # Save content to the file
         content_to_save = text
@@ -86,6 +94,7 @@ def show_about():
         "Configuration:\n"
         "The application supports multiple configurable paths in the config.ini file:\n"
         "  - save_path: The directory where journal entries are saved.\n"
+        "  - signature Variables {date} {dateTime} {wordCount}\n"
         "  - signatures_path: The directory containing signature files.\n\n"
         "Use the File menu options to change these paths dynamically."
     )

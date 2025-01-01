@@ -47,9 +47,11 @@ def save_entry(textbox, titlebox, signature_dropdown):
         if '/' in title or '\\' in title:
             dir_path, title = os.path.split(title)
             dir_path = os.path.join(save_path, dir_path)
-            os.makedirs(dir_path, exist_ok=True)
         else:
             dir_path = save_path
+
+        # Ensure the directory exists
+        os.makedirs(dir_path, exist_ok=True)
 
         filename = f'{title}.txt'
         file_path = os.path.join(dir_path, filename)

@@ -1,3 +1,7 @@
+
+![20250101 093539-Wed January 01 2025 0935AM](https://github.com/user-attachments/assets/231c9ffc-af83-400b-ad39-a0c3ea328d35)
+
+
 QuickJournal is a simple journaling application that allows you to write and save text entries with ease. It features a modern GUI with transparency and enhanced functionality.
 Configuration File Setup
 
